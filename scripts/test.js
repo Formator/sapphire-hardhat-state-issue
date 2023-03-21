@@ -50,7 +50,7 @@ async function main() {
       value: ethers.constants.WeiPerEther,
       data: "0x" // This is required to send ether
     });
-    await tx1.wait();
+    await tx1.wait(2);
 
     console.log("Tester account balance after transfer:", (await tester.getBalance()).toString());
   }
@@ -69,7 +69,7 @@ async function main() {
     // Send some token to the tester account
     // ISSUE: transfer transaction below work without revert, but blockchain state will not be changed (balanceOf call for tester return same as before)
     const tx2 = await deployerTokenWriteInstance.transfer(tester.address, 100);
-    await tx2.wait();
+    await tx2.wait(2);
     testerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(tester.address);
     deployerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(deployer.address);
     console.log("Deployer account token balance after transfer:", deployerTokenBalanceAfter.toString());
@@ -92,7 +92,7 @@ async function main() {
     // Send some token to the deployer account
     // ISSUE: transfer transaction below work without revert, but blockchain state will not be changed (balanceOf call for tester return same as before)
     const tx3 = await testerTokenWriteInstance.transfer(deployer.address, 10);
-    await tx3.wait();
+    await tx3.wait(2);
     testerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(tester.address);
     deployerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(deployer.address);
     console.log("Deployer account token balance after transfer:", deployerTokenBalanceAfter.toString());
