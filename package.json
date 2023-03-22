@@ -41,6 +41,6 @@
     "eslint-config-prettier": "^8.5.0"
   },
   "dependencies": {
-    "@oasisprotocol/sapphire-hardhat": "file:../HackHardhat/sapphire-paratime/integrations/hardhat"
+    "@oasisprotocol/sapphire-hardhat": "file:../sapphire-paratime/integrations/hardhat"
   }
 }

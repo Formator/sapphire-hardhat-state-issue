@@ -1,10 +1,6 @@
 const sapphire = require("@oasisprotocol/sapphire-paratime");
 const fs = require("fs");
 
-async function sleep(ms) {
-  return await new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 async function main() {
   // This is just a convenience check
   if (network.name === "hardhat") {
@@ -35,12 +31,14 @@ async function main() {
 
   console.log("tester: ", tester);
   const deployerTokenReadInstance = await token.connect(deployer);
-  const deployerTokenWriteInstance = await token.connect(
-    sapphire.wrap(deployer)
-  );
+  // const deployerTokenWriteInstance = await token.connect(
+  //   sapphire.wrap(deployer)
+  // );
+  const deployerTokenWriteInstance = await token.connect(deployer);
 
   const testerTokenReadInstance = await token.connect(tester);
-  const testerTokenWriteInstance = await token.connect(sapphire.wrap(tester));
+  // const testerTokenWriteInstance = await token.connect(sapphire.wrap(tester));
+  const testerTokenWriteInstance = await token.connect(tester);
 
   console.log("Token address:", token.address);
   console.log("Token deployer was: ", await deployer.getAddress());
@@ -97,9 +95,8 @@ async function main() {
     // ISSUE: transfer transaction below work without revert, but blockchain state will not be changed (balanceOf call for tester return same as before)
     console.log("before transaction");
     const tx2 = await deployerTokenWriteInstance.transfer(tester.address, 100);
-    await tx2.wait();
+    await tx2.wait(2);
     console.log("transaction completed");
-    await sleep(15000);
     testerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(
       tester.address
     );
@@ -146,8 +143,7 @@ async function main() {
     // Send some token to the deployer account
     // ISSUE: transfer transaction below work without revert, but blockchain state will not be changed (balanceOf call for tester return same as before)
     const tx3 = await testerTokenWriteInstance.transfer(deployer.address, 10);
-    await tx3.wait();
-    await sleep(15000);
+    await tx3.wait(2);
     testerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(
       tester.address
     );
