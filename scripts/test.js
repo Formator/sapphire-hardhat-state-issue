@@ -76,7 +76,7 @@ async function main() {
     "2 - Check if tester account has at least 100 tokens if he has't, send them from deployer account"
   );
   // ISSUE: balanceOf call work only from deployer normal signer
-  let testerTokenBalanceBefore = await deployerTokenReadInstance.balanceOf(
+  let testerTokenBalanceBefore = await testerTokenReadInstance.balanceOf(
     tester.address
   );
   let deployerTokenBalanceBefore = await deployerTokenReadInstance.balanceOf(
@@ -97,7 +97,7 @@ async function main() {
     const tx2 = await deployerTokenWriteInstance.transfer(tester.address, 100);
     await tx2.wait(2);
     console.log("transaction completed");
-    testerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(
+    testerTokenBalanceAfter = await testerTokenReadInstance.balanceOf(
       tester.address
     );
     deployerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(
@@ -128,7 +128,7 @@ async function main() {
   deployerTokenBalanceBefore = await deployerTokenReadInstance.balanceOf(
     deployer.address
   );
-  testerTokenBalanceBefore = await deployerTokenReadInstance.balanceOf(
+  testerTokenBalanceBefore = await testerTokenReadInstance.balanceOf(
     tester.address
   );
   if (testerTokenBalanceBefore.gte(10)) {
@@ -144,7 +144,7 @@ async function main() {
     // ISSUE: transfer transaction below work without revert, but blockchain state will not be changed (balanceOf call for tester return same as before)
     const tx3 = await testerTokenWriteInstance.transfer(deployer.address, 10);
     await tx3.wait(2);
-    testerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(
+    testerTokenBalanceAfter = await testerTokenReadInstance.balanceOf(
       tester.address
     );
     deployerTokenBalanceAfter = await deployerTokenReadInstance.balanceOf(
