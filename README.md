@@ -47,3 +47,7 @@ Tester don't have enough tokens to send. Balance: 0
 ## Explanation
 
 "ERROR: Tester account token balance not changed!!" --> Smart Contract state has not changed
+
+## Issues resolving
+- Smart Contract State doesn't change has been resolved within this [issue](https://github.com/oasisprotocol/sapphire-paratime/issues/106)
+- Error when calling Smart Contract's method from signer other then deployer 
