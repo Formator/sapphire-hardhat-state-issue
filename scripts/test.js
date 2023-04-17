@@ -31,14 +31,14 @@ async function main() {
 
   console.log("tester: ", tester);
   const deployerTokenReadInstance = await token.connect(deployer);
-  // const deployerTokenWriteInstance = await token.connect(
-  //   sapphire.wrap(deployer)
-  // );
-  const deployerTokenWriteInstance = await token.connect(deployer);
+  const deployerTokenWriteInstance = await token.connect(
+    sapphire.wrap(deployer)
+  );
+  // const deployerTokenWriteInstance = await token.connect(deployer);
 
   const testerTokenReadInstance = await token.connect(tester);
-  // const testerTokenWriteInstance = await token.connect(sapphire.wrap(tester));
-  const testerTokenWriteInstance = await token.connect(tester);
+  const testerTokenWriteInstance = await token.connect(sapphire.wrap(tester));
+//  const testerTokenWriteInstance = await token.connect(tester);
 
   console.log("Token address:", token.address);
   console.log("Token deployer was: ", await deployer.getAddress());
